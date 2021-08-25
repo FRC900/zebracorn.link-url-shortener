@@ -1,68 +1,167 @@
-[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
-![Total Lines](https://img.shields.io/tokei/lines/github/nelsontky/gh-pages-url-shortener?color=green)
-![GitHub stars](https://img.shields.io/github/stars/nelsontky/gh-pages-url-shortener?style=social)
+<h1 align="center">
+  <br>
+  :link:
+  <br>
+</h1>
 
-# 🔗 GitHub Pages URL Shortener
+<h4 align="center">A website for <a href="https://fiy.no/" target="_blank">URL shortener</a>.</h4>
 
-This is a minimal URL shortener that can be entirely hosted on GitHub pages. It
-does not need the maintenance of any servers or databases and can be hosted
-entirely on GitHub for free!
+<p align="center">
+  <a href="https://fiy.no/">
+    <img src="https://img.shields.io/website-up-down-green-red/http/fiy.no.svg">
+  </a>
+  <a href="https://opensource.org/licenses/MIT">
+      <img src="https://img.shields.io/badge/License-MIT-blue.svg">
+  </a>
+</p>
 
-## 👨‍🏫 Demo
+# URL shortener
 
-1. [nlsn.cf/1](https://nlsn.cf/1) should link to this repo.
+URL shortener with Jekyll and Github pages
 
-1. To add a new short link, add an issue with the title being the link you want
-   to shorten (including the `http(s)://`) to
-   [https://github.com/nelsontky/gh-pages-url-shortener-db/issues](https://github.com/nelsontky/gh-pages-url-shortener-db/issues).
+> Create short URLs that can be easily shared, tweeted, or emailed to friends. Fork this repo to get started.
 
-1. The newly created short url can be accessed via `nlsn.cf/{issue_number}`
+## Getting Started
 
-## ☕️ Features
+Follow these steps to create your own URL Shortener:
 
-1. Unlike many URL shorteners, this one ~~does not need a database~~ uses a
-   "database" in the form of GitHub issues and can be entirely hosted on GitHub
-   pages.
+1. Get a domain name
+2. Configure the DNS for the domain
+3. Fork or clone this repo
+4. Edit the `_config.yml` file
+5. Host on GitHub Pages
+6. Create link pages
 
-1. There is no need for the pound symbol - short URLs look clean like this:
-   `nlsn.cf/1` instead of looking like this: `nlsn.cf/#1`.
+### Domain
 
-## 💡 How does this work?
+Get a *(preferably short)* domain name from your favorite [registrar](https://www.icann.org/registrar-reports/accredited-list.html).
 
-_Thanks to @kidGodzilla for the pretty neat explanation
-[here](https://github.com/nelsontky/gh-pages-url-shortener/issues/5#issuecomment-728040879)._
+Add CNAME
 
-> 1. 404.html handles all requests
-> 1. Small javascript snippet fetches a JSON representation of the GitHub issue
->    via the JSON API, and redirects to the issue title, as a URL.
-> 1. Profit?
+### Configuration
 
-## 😎 This is so cool! How can I use this with my own domain?!
+Edit the `_config.yml` file:
 
-_Disclaimer: This method of creating a URL shortener is hacky and not meant to
-be reliable. Do proceed at your own risk!_
+```yml
+name: URL Shortener
 
-1. Fork the repo before cloning your fork.
-1. Set up GitHub pages for your forked repo.
-   1. In your forked repo, **click the Settings tab** and scroll down to the
-      GitHub Pages section.
-   1. Then select the **main branch** source and click on the **Save** button.
-   1. <img src="https://i.imgur.com/kjinFX9.png" alt="How to create GitHub page" height="176px">
-1. If you are using your own domain:
-   1. [Set your domain up for GitHub pages.](https://docs.github.com/en/free-pro-team@latest/github/working-with-github-pages/managing-a-custom-domain-for-your-github-pages-site#configuring-an-apex-domain)
-   1. Change the URL in `CNAME` file to your domain.
-1. If you are using GitHub page's default domain i.e. Something like
-   `https://<username>.github.io/<repo-name>/`
-   1. Delete the `CNAME` file.
-   1. Change `var PATH_SEGMENTS_TO_SKIP = 0;` at the top of `404.html` to
-      `var PATH_SEGMENTS_TO_SKIP = 1;`.
-      1. This is as GitHub domains have an additional path segment (the repo
-         name) after the host name.
-1. Create a new repo as a database. (Or you could use your forked repo)
-   1. Update `var GITHUB_ISSUES_LINK = "<your-github-issues-link>";` at the top
-      of `404.html` accordingly afterwards.
-      1. Format for `GITHUB_ISSUES_LINK`:
-         `https://api.github.com/repos/{owner}/{repo}/issues/`
-      1. Remember the trailing `/`!
-1. Push your changes to your forked repo, and your low cost and cool as heck URL
-   shortener will be ready for use!
+title: URL Shortener
+description: Create short URLs that can be easily shared, tweeted, or emailed to friends.
+
+version: v0.1
+
+baseurl: ""
+permalink: /:slug/
+
+plugins:
+  - jekyll-redirect-from
+
+collections:
+  urls:
+    output: true
+    permalink: /:slug
+
+whitelist:
+  - jekyll-redirect-from
+
+redirect_from:
+  json: false
+
+include:
+  - _urls
+```
+
+The global `permalink` for pages is set to `/:slug/`.
+
+> Permalinks are the output path for your pages, posts, or collections. They allow you to structure the directories of your source code different from the directories in your output.
+
+> Slugified title from the document’s filename (any character except numbers and letters is replaced as hyphen). May be overridden via the document’s `slug` front matter.
+
+Read more about permalinks at https://jekyllrb.com/docs/permalinks/
+
+It is the `jekyll-redirect-from` plugin that does the redirecting from the *short link* to the *target page*.
+
+> Sometimes, you may want to redirect a site page to a totally different website.
+
+Read more about the plugin at https://github.com/jekyll/jekyll-redirect-from
+
+You can find more useful `plugins` to add at https://pages.github.com/versions/
+
+When running Jekyll locally, uncomment the `repository` line and point to your own GitHub repo.
+
+### GitHub Pages
+
+Go to the repo [/settings](../../settings) and scroll down to the **GitHub Pages** section.
+
+Set the `Source` to `master branch`: https://help.github.com/articles/configuring-a-publishing-source-for-github-pages/
+
+Point the `Custom domain` to your domain name: https://help.github.com/articles/using-a-custom-domain-with-github-pages/
+
+This will create a `CNAME` file in the repo:
+
+```txt
+example.com
+```
+
+> Custom domains are stored in a `CNAME` file in the root of your repository. You can add or update your custom domain through your repository settings. You can also edit the file directly to update your custom domain.
+
+Read more about adding a custom domain at https://help.github.com/articles/adding-or-removing-a-custom-domain-for-your-github-pages-site/
+
+Make sure the `Enforce HTTPS` checkbox is ticked: https://help.github.com/articles/securing-your-github-pages-site-with-https/
+
+> HTTPS provides a layer of encryption that prevents others from snooping on or tampering with traffic to your site. When HTTPS is enforced, your site will only be served over HTTPS.
+
+Read more about GitHub Pages at https://pages.github.com
+
+## Links
+
+Create a new short link by creating a page: https://jekyllrb.com/docs/pages/
+
+Create the file in the _urls folder of the repository.
+
+This repository has an example, [`repo.md`](repo.md):
+
+```md
+---
+redirect_to: https://github.com/storbukas/url-shortener
+---
+```
+
+This results in:
+
+* "Short" link: https://fiy.no/repo
+* Target page:  https://github.com/storbukas/url-shortener
+
+The `redirect_to` is the URL to the target page. This is the only [front matter](https://jekyllrb.com/docs/front-matter/) that is mandatory to make the short link work.
+
+The file can have a `.md` (Markdown) or `.html` extension.
+
+By default, the file name will be the *slug* of the short link. This behavior is configured in `_config.yml`.
+
+If you want to use a different slug, set the `permalink` variable:
+
+```md
+permalink: /something/
+```
+
+Take the opportunity to get a real short slug by using *emojis*:
+
+```md
+permalink: /😻/
+```
+
+Find appropriate emojis to copy from https://www.emojicopy.com
+
+## Built With
+
+* Jekyll: https://jekyllrb.com
+* jekyll-redirect-from: https://github.com/jekyll/jekyll-redirect-from
+* GitHub Pages: https://pages.github.com
+
+## License
+
+This project is licensed under the [MIT License](https://opensource.org/licenses/MIT) - see the [LICENSE](LICENSE) file for details
+
+## Credits
+
+- [hlaueriksson](https://github.com/hlaueriksson)/[jekyll-url-shortener](https://github.com/hlaueriksson/jekyll-url-shortener) - Inspired and based upon 
