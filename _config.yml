@@ -9,5 +9,10 @@ permalink: /:slug/
 
 plugins:
   - jekyll-redirect-from
+  
+collections:
+  urls:
+    output: true
+    permalink: /:slug
 
 #repository: hlaueriksson/jekyll-url-shortener
