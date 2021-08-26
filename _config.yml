@@ -8,6 +8,7 @@ version: v0.2
 baseurl: ""
 permalink: /:slug/
 logo: /assets/logo.png
+show_downloads: false
 
 theme: jekyll-theme-minimal
 
