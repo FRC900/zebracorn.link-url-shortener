@@ -1,37 +1,13 @@
-name: URL Shortener
-
-title: URL Shortener
-description: Create short URLs that can be easily shared, tweeted, or emailed to friends.
-
-version: v0.2
-
-baseurl: ""
-permalink: /:slug/
-logo: /assets/logo.png
-show_downloads: false
-
+title: Jekyll URL Shortener
+description: ✂️🔗 This is a template repository for making URL Shorteners with Jekyll and GitHub Pages. Create short URLs that can be easily shared, tweeted, or emailed to friends. Fork this repo to get started.
+logo: /assets/img/logo.png
+show_downloads: true
+google_analytics:
 theme: jekyll-theme-minimal
+
+permalink: /:slug/
 
 plugins:
   - jekyll-redirect-from
 
-collections:
-  urls:
-    output: true
-    permalink: /:slug
-
-whitelist:
-  - jekyll-redirect-from
-
-redirect_from:
-  json: false
-
-include:
-  - _urls
-
-exclude:
-  - Gemfile
-  - Gemfile.lock
-  - LICENSE
-  - README.md
-  - CNAME
+#repository: hlaueriksson/jekyll-url-shortener
