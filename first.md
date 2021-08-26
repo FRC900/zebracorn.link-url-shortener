@@ -1,4 +1,4 @@
 ---
 title: Jekyll URL Shortener
-redirect_to: https://firstinspires.org
+redirect_to: https://www.firstinspires.org
 ---
