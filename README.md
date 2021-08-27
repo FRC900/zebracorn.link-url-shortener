@@ -60,6 +60,7 @@ This repository has one example, [`repo.md`](repo.md):
 ---
 title: Jekyll URL Shortener
 redirect_to: https://github.com/hlaueriksson/jekyll-url-shortener
+permalinl: /optional/
 ---
 ```
 
